@@ -45,3 +45,4 @@ root.created_at = now()
 root.optional = this.maybe.value.or("default")
 root.deleted_field = deleted()
 root.custom_var = $custom_var
+root.complex_logic = this.foo.(if true { bar } else { baz } | qux).end.method()

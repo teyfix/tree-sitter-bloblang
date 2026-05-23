@@ -7,17 +7,18 @@ root = if this.type == "event" {
   deleted()
 }
 ---
+
 (source
   (root_assignment
     value: (if_expr
       condition: (binary_expr
-        left: (method_chain
-          receiver: (identifier)
-          method: (identifier))
+        left: (field_access
+          object: (this_ref)
+          field: (identifier))
         right: (string))
-      consequence: (method_chain
-        receiver: (identifier)
-        method: (identifier))
+      consequence: (field_access
+        object: (this_ref)
+        field: (identifier))
       alternative: (deleted))))
 
 ==================
@@ -28,17 +29,18 @@ root = match this.type {
   _ => deleted()
 }
 ---
+
 (source
   (root_assignment
     value: (match_expr
-      condition: (method_chain
-        receiver: (identifier)
-        method: (identifier))
+      condition: (field_access
+        object: (this_ref)
+        field: (identifier))
       (match_case
         pattern: (string)
-        result: (method_chain
-          receiver: (identifier)
-          method: (identifier)))
+        result: (field_access
+          object: (this_ref)
+          field: (identifier)))
       (match_case
         pattern: (catch_all)
         result: (deleted)))))
@@ -51,14 +53,15 @@ root = match {
   _ => "other"
 }
 ---
+
 (source
   (root_assignment
     value: (match_expr
       (match_case
         pattern: (binary_expr
-          left: (method_chain
-            receiver: (identifier)
-            method: (identifier))
+          left: (field_access
+            object: (this_ref)
+            field: (identifier))
           right: (number))
         result: (string))
       (match_case

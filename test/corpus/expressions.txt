@@ -3,37 +3,40 @@ Method chain - single
 ==================
 root = this.user
 ---
+
 (source
   (root_assignment
-    value: (method_chain
-      receiver: (identifier)
-      method: (identifier))))
+    value: (field_access
+      object: (this_ref)
+      field: (identifier))))
 
 ==================
 Method chain - deep
 ==================
 root = this.user.name.trim()
 ---
+
 (source
   (root_assignment
-    value: (method_chain
-      receiver: (method_chain
-        receiver: (method_chain
-          receiver: (identifier)
-          method: (identifier))
-        method: (identifier))
-      method: (call_expr
-        function: (identifier)))))
+    value: (method_call
+      object: (field_access
+        object: (field_access
+          object: (this_ref)
+          field: (identifier))
+        field: (identifier))
+      method: (identifier))))
+
 ==================
 Method chain - parenthesized coalesce
 ==================
 root = this.(bar | baz)
 ---
+
 (source
   (root_assignment
-    value: (method_chain
-      receiver: (identifier)
-      method: (parenthesized_expr
+    value: (field_access
+      object: (this_ref)
+      field: (parenthesized_expr
         (binary_expr
           left: (identifier)
           right: (identifier))))))
@@ -43,45 +46,45 @@ Method chain - parenthesized coalesce with chained methods
 ==================
 root = this.(bar | baz).trim()
 ---
+
 (source
   (root_assignment
-    value: (method_chain
-      receiver: (method_chain
-        receiver: (identifier)
-        method: (parenthesized_expr
+    value: (method_call
+      object: (field_access
+        object: (this_ref)
+        field: (parenthesized_expr
           (binary_expr
             left: (identifier)
             right: (identifier))))
-      method: (call_expr
-        function: (identifier)))))
+      method: (identifier))))
 
 ==================
 Method chain - parenthesized coalesce with named args
 ==================
 root = this.(bar | baz).trim().replace_all("dog", "cat")
 ---
+
 (source
   (root_assignment
-    value: (method_chain
-      receiver: (method_chain
-        receiver: (method_chain
-          receiver: (identifier)
-          method: (parenthesized_expr
+    value: (method_call
+      object: (method_call
+        object: (field_access
+          object: (this_ref)
+          field: (parenthesized_expr
             (binary_expr
               left: (identifier)
               right: (identifier))))
-        method: (call_expr
-          function: (identifier)))
-      method: (call_expr
-        function: (identifier)
-        (string)
-        (string)))))
+        method: (identifier))
+      method: (identifier)
+      (string)
+      (string))))
 
 ==================
 Call expression - no args
 ==================
 root = uuid_v4()
 ---
+
 (source
   (root_assignment
     value: (call_expr
@@ -92,38 +95,37 @@ Call expression - with args
 ==================
 root = this.user.name.replace("foo", "bar")
 ---
+
 (source
   (root_assignment
-    value: (method_chain
-      receiver: (method_chain
-        receiver: (method_chain
-          receiver: (identifier)
-          method: (identifier))
-        method: (identifier))
-      method: (call_expr
-        function: (identifier)
-        (string)
-        (string)))))
+    value: (method_call
+      object: (field_access
+        object: (field_access
+          object: (this_ref)
+          field: (identifier))
+        field: (identifier))
+      method: (identifier)
+      (string)
+      (string))))
 
 ==================
 Lambda
 ==================
 root = this.roles.map_each(role -> role.uppercase())
 ---
+
 (source
   (root_assignment
-    value: (method_chain
-      receiver: (method_chain
-        receiver: (identifier)
-        method: (identifier))
-      method: (call_expr
-        function: (identifier)
-        (lambda
-          param: (identifier)
-          body: (method_chain
-            receiver: (identifier)
-            method: (call_expr
-              function: (identifier))))))))
+    value: (method_call
+      object: (field_access
+        object: (this_ref)
+        field: (identifier))
+      method: (identifier)
+      (lambda
+        param: (identifier)
+        body: (method_call
+          object: (identifier)
+          method: (identifier))))))
 
 ==================
 Object literal
@@ -133,23 +135,24 @@ root = {
   "name": this.user.name,
 }
 ---
+
 (source
   (root_assignment
     value: (object_literal
       (pair
         key: (string)
-        value: (method_chain
-          receiver: (method_chain
-            receiver: (identifier)
-            method: (identifier))
-          method: (identifier)))
+        value: (field_access
+          object: (field_access
+            object: (this_ref)
+            field: (identifier))
+          field: (identifier)))
       (pair
         key: (string)
-        value: (method_chain
-          receiver: (method_chain
-            receiver: (identifier)
-            method: (identifier))
-          method: (identifier))))))
+        value: (field_access
+          object: (field_access
+            object: (this_ref)
+            field: (identifier))
+          field: (identifier))))))
 
 ==================
 Object literal - if expression key
@@ -163,6 +166,7 @@ root = {
   if true { this.prop.replace("in", "replace") } else { "false" }: 3
 }
 ---
+
 (source
   (let_assignment
     name: (identifier)
@@ -189,14 +193,13 @@ root = {
       (pair
         key: (if_expr
           condition: (boolean)
-          consequence: (method_chain
-            receiver: (method_chain
-              receiver: (identifier)
-              method: (identifier))
-            method: (call_expr
-              function: (identifier)
-              (string)
-              (string)))
+          consequence: (method_call
+            object: (field_access
+              object: (this_ref)
+              field: (identifier))
+            method: (identifier)
+            (string)
+            (string))
           alternative: (string))
         value: (number)))))
 
@@ -205,6 +208,7 @@ Array literal
 ==================
 root = ["a", "b", "c"]
 ---
+
 (source
   (root_assignment
     value: (array_literal
@@ -217,15 +221,15 @@ Binary expression
 ==================
 root = this.errors.length() > 0
 ---
+
 (source
   (root_assignment
     value: (binary_expr
-      left: (method_chain
-        receiver: (method_chain
-          receiver: (identifier)
-          method: (identifier))
-        method: (call_expr
-          function: (identifier)))
+      left: (method_call
+        object: (field_access
+          object: (this_ref)
+          field: (identifier))
+        method: (identifier))
       right: (number))))
 
 ==================
@@ -233,28 +237,30 @@ Unary expression
 ==================
 root = !this.active
 ---
+
 (source
   (root_assignment
     value: (unary_expr
-      argument: (method_chain
-        receiver: (identifier)
-        method: (identifier)))))
+      argument: (field_access
+        object: (this_ref)
+        field: (identifier)))))
 
 ==================
 Parenthesized expression
 ==================
 root = (this.a + this.b)
 ---
+
 (source
   (root_assignment
     value: (parenthesized_expr
       (binary_expr
-        left: (method_chain
-          receiver: (identifier)
-          method: (identifier))
-        right: (method_chain
-          receiver: (identifier)
-          method: (identifier))))))
+        left: (field_access
+          object: (this_ref)
+          field: (identifier))
+        right: (field_access
+          object: (this_ref)
+          field: (identifier))))))
 
 ==================
 Variable reference
@@ -262,12 +268,13 @@ Variable reference
 let kvs = this.items
 root = $kvs
 ---
+
 (source
   (let_assignment
     name: (identifier)
-    value: (method_chain
-      receiver: (identifier)
-      method: (identifier)))
+    value: (field_access
+      object: (this_ref)
+      field: (identifier)))
   (root_assignment
     value: (variable_ref
       (identifier))))
@@ -277,6 +284,7 @@ Deleted
 ==================
 root = deleted()
 ---
+
 (source
   (root_assignment
     value: (deleted)))

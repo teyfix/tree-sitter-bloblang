@@ -80,25 +80,31 @@
 (pair
   key: (identifier) @property)
 
-; 5. Properties and fields (e.g., root.doc.id or v.key)
+; 5. Properties and fields (e.g., root.doc.id, v.key, this.foo.(bar | baz))
 (root_assignment
   path: (identifier) @property)
 
 (meta_assignment
   key: (identifier) @property)
 
-(method_chain
-  method: (identifier) @property)
+; Bare field access: this.foo, this.user.id, this.foo.(bar | baz).end
+(field_access
+  field: (identifier) @property)
+
+; Method calls: this.trim(), this.map_each(...), this.foo.or(uuid_v4())
+(method_call
+  method: (identifier) @function.method)
 
 ; 6. Functions and map definitions
+; Global function calls: uuid_v4(), now(), deleted()
 (call_expr
   function: (identifier) @function)
 
 (map_declaration
   name: (identifier) @type.definition)
 
-; 7. Built-ins and Catch-alls
-(catch_all) @variable.builtin
+; 7. This reference
+(this_ref) @variable.builtin
 
-((identifier) @variable.builtin
- (#eq? @variable.builtin "this"))
+; 8. Built-ins and Catch-alls
+(catch_all) @variable.builtin

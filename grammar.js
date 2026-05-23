@@ -18,10 +18,7 @@ export default grammar({
   /**
    * Tell Tree-sitter to use GLR parsing for this specific ambiguity
    */
-  conflicts: ($) => [
-    [$.match_expr, $.object_literal],
-    [$.call_expr, $._primary],
-  ],
+  conflicts: ($) => [[$.match_expr, $.object_literal]],
 
   rules: {
     // -------------------------------------------------------------------------
@@ -87,7 +84,8 @@ export default grammar({
       choice(
         $.if_expr,
         $.match_expr, // Added to support match blocks
-        $.method_chain,
+        $.method_call,
+        $.field_access,
         $.lambda,
         $.object_literal,
         $.array_literal,
@@ -138,19 +136,31 @@ export default grammar({
     catch_all: ($) => "_",
 
     /**
-     * Method chains or field accesses using dot notation (e.g., this.foo.bar() or this.foo)
+     * Property access without invocation (e.g., this.items, this.foo.bar)
      */
-    method_chain: ($) =>
+    field_access: ($) =>
       prec.left(
         3,
         seq(
-          field("receiver", $._expr),
-          // Use token.immediate(".") to prevent `this .name` or `this \n .name`
+          field("object", $._expr),
           token.immediate("."),
-          field(
-            "method",
-            choice($.identifier, $.call_expr, $.parenthesized_expr),
-          ),
+          field("field", choice($.identifier, $.parenthesized_expr)),
+        ),
+      ),
+
+    /**
+     * Method chain — must end with parentheses (e.g., this.items(), this.foo.bar())
+     */
+    method_call: ($) =>
+      prec.left(
+        4,
+        seq(
+          field("object", $._expr),
+          token.immediate("."),
+          field("method", $.identifier),
+          "(",
+          optional(seq($._expr, repeat(seq(",", $._expr)))),
+          ")",
         ),
       ),
 
@@ -161,14 +171,17 @@ export default grammar({
       seq(field("param", $.identifier), "->", field("body", $._expr)),
 
     /**
-     * Function calls, either global functions or method invocations (e.g., uuid_v4(), func(arg))
+     * Global function calls by bare identifier only (e.g., uuid_v4(), deleted())
      */
     call_expr: ($) =>
-      seq(
-        field("function", $.identifier),
-        "(",
-        optional(seq($._expr, repeat(seq(",", $._expr)))),
-        ")",
+      prec.left(
+        4,
+        seq(
+          field("function", $.identifier),
+          "(",
+          optional(seq($._expr, repeat(seq(",", $._expr)))),
+          ")",
+        ),
       ),
 
     /**
@@ -247,7 +260,8 @@ export default grammar({
       choice(
         $.call_expr,
         $.meta_ref,
-        $.variable_ref, // Added variable references here so they can be nested in method chains natively
+        $.this_ref,
+        $.variable_ref,
         $.deleted,
         $.identifier,
         $.string,
@@ -260,6 +274,11 @@ export default grammar({
      * Parentheses to explicitly override operator precedence (e.g., (a + b))
      */
     parenthesized_expr: ($) => seq("(", $._expr, ")"),
+
+    /**
+     * Reference to the current object (e.g., this)
+     */
+    this_ref: ($) => "this",
 
     /**
      * Metadata reference (e.g., @kafka_topic)

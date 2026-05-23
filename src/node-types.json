@@ -28,6 +28,10 @@
           "named": true
         },
         {
+          "type": "field_access",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -48,7 +52,7 @@
           "named": true
         },
         {
-          "type": "method_chain",
+          "type": "method_call",
           "named": true
         },
         {
@@ -65,6 +69,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "this_ref",
           "named": true
         },
         {
@@ -107,6 +115,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -127,7 +139,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -144,6 +156,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -243,6 +259,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -263,7 +283,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -280,6 +300,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -339,6 +363,10 @@
           "named": true
         },
         {
+          "type": "field_access",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -359,7 +387,7 @@
           "named": true
         },
         {
-          "type": "method_chain",
+          "type": "method_call",
           "named": true
         },
         {
@@ -379,6 +407,10 @@
           "named": true
         },
         {
+          "type": "this_ref",
+          "named": true
+        },
+        {
           "type": "unary_expr",
           "named": true
         },
@@ -387,6 +419,108 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "field_access",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expr",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_literal",
+            "named": true
+          },
+          {
+            "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call_expr",
+            "named": true
+          },
+          {
+            "type": "deleted",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "lambda",
+            "named": true
+          },
+          {
+            "type": "match_expr",
+            "named": true
+          },
+          {
+            "type": "meta_ref",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "object_literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expr",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
+            "named": true
+          },
+          {
+            "type": "unary_expr",
+            "named": true
+          },
+          {
+            "type": "variable_ref",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -418,6 +552,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -438,7 +576,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -455,6 +593,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -492,6 +634,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -512,7 +658,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -529,6 +675,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -566,6 +716,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -586,7 +740,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -603,6 +757,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -646,6 +804,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -666,7 +828,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -683,6 +845,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -746,6 +912,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -766,7 +936,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -783,6 +953,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -868,6 +1042,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -888,7 +1066,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -905,6 +1083,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -942,6 +1124,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -962,7 +1148,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -979,6 +1165,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -1022,6 +1212,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -1042,7 +1236,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -1059,6 +1253,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -1122,6 +1320,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -1142,7 +1344,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -1159,6 +1361,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -1189,7 +1395,7 @@
     }
   },
   {
-    "type": "method_chain",
+    "type": "method_call",
     "named": true,
     "fields": {
       "method": {
@@ -1197,20 +1403,12 @@
         "required": true,
         "types": [
           {
-            "type": "call_expr",
-            "named": true
-          },
-          {
             "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expr",
             "named": true
           }
         ]
       },
-      "receiver": {
+      "object": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1235,6 +1433,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -1255,7 +1457,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -1275,6 +1477,10 @@
             "named": true
           },
           {
+            "type": "this_ref",
+            "named": true
+          },
+          {
             "type": "unary_expr",
             "named": true
           },
@@ -1284,6 +1490,88 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array_literal",
+          "named": true
+        },
+        {
+          "type": "binary_expr",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "call_expr",
+          "named": true
+        },
+        {
+          "type": "deleted",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expr",
+          "named": true
+        },
+        {
+          "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "match_expr",
+          "named": true
+        },
+        {
+          "type": "meta_ref",
+          "named": true
+        },
+        {
+          "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "object_literal",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expr",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "this_ref",
+          "named": true
+        },
+        {
+          "type": "unary_expr",
+          "named": true
+        },
+        {
+          "type": "variable_ref",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1330,6 +1618,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -1350,7 +1642,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -1367,6 +1659,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -1404,6 +1700,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -1424,7 +1724,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -1441,6 +1741,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -1484,6 +1788,10 @@
           "named": true
         },
         {
+          "type": "field_access",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -1504,7 +1812,7 @@
           "named": true
         },
         {
-          "type": "method_chain",
+          "type": "method_call",
           "named": true
         },
         {
@@ -1521,6 +1829,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "this_ref",
           "named": true
         },
         {
@@ -1573,6 +1885,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -1593,7 +1909,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -1610,6 +1926,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -1681,6 +2001,10 @@
             "named": true
           },
           {
+            "type": "field_access",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
@@ -1701,7 +2025,7 @@
             "named": true
           },
           {
-            "type": "method_chain",
+            "type": "method_call",
             "named": true
           },
           {
@@ -1718,6 +2042,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
             "named": true
           },
           {
@@ -1916,6 +2244,10 @@
   },
   {
     "type": "string",
+    "named": true
+  },
+  {
+    "type": "this_ref",
     "named": true
   },
   {

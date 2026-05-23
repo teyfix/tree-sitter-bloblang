@@ -3,6 +3,7 @@ Root assignment - simple value
 ==================
 root = "hello"
 ---
+
 (source
   (root_assignment
     value: (string)))
@@ -12,6 +13,7 @@ Root assignment - deep path
 ==================
 root.user.name = "alice"
 ---
+
 (source
   (root_assignment
     path: (identifier)
@@ -23,6 +25,7 @@ Meta assignment
 ==================
 meta original_topic = @kafka_topic
 ---
+
 (source
   (meta_assignment
     key: (identifier)
@@ -34,6 +37,7 @@ Let assignment
 ==================
 let x = 42
 ---
+
 (source
   (let_assignment
     name: (identifier)
@@ -46,10 +50,11 @@ map normalize_user {
   root = this.user
 }
 ---
+
 (source
   (map_declaration
     name: (identifier)
     (root_assignment
-      value: (method_chain
-        receiver: (identifier)
-        method: (identifier)))))
+      value: (field_access
+        object: (this_ref)
+        field: (identifier)))))
