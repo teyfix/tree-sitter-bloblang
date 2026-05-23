@@ -1,0 +1,37 @@
+==================
+Invalid - Root assignment missing equals
+:error
+==================
+root this.foo
+---
+
+==================
+Invalid - Let declaration missing equals
+:error
+==================
+let my_var this.foo
+---
+
+==================
+Invalid - Meta assignment missing equals
+:error
+==================
+meta my_topic @kafka_topic
+---
+
+==================
+Invalid - Map declaration missing name
+:error
+==================
+map {
+  root = this
+}
+---
+
+==================
+Invalid - Map declaration missing braces
+:error
+==================
+map normalize_user
+  root = this
+---

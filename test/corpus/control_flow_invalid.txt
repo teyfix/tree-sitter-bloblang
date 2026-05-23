@@ -1,0 +1,35 @@
+==================
+Invalid - If expression missing braces
+:error
+==================
+root = if this.a == 1
+  this.b
+---
+
+==================
+Invalid - If-else expression missing braces on else
+:error
+==================
+root = if this.a == 1 {
+  this.b
+} else 
+  this.c
+---
+
+==================
+Invalid - Match expression missing braces
+:error
+==================
+root = match this.type
+  "event" => this
+---
+
+==================
+Invalid - Match case missing arrow
+:error
+==================
+root = match this.type {
+  "event" this
+  _ => deleted()
+}
+---

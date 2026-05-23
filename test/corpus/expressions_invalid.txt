@@ -1,0 +1,30 @@
+==================
+Invalid - Space before dot in method chain
+:error
+==================
+root = this .name
+---
+
+==================
+Invalid - Newline before dot in method chain
+:error
+==================
+root = this
+  .name
+---
+
+==================
+Invalid - Object literal missing colon
+:error
+==================
+root = {
+  "foo" "bar"
+}
+---
+
+==================
+Invalid - Array missing comma (if multiple items)
+:error
+==================
+root = ["a" "b"]
+---
