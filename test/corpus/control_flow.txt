@@ -1,0 +1,66 @@
+==================
+If expression
+==================
+root = if this.type == "event" {
+  this.content
+} else {
+  deleted()
+}
+---
+(source
+  (root_assignment
+    value: (if_expr
+      condition: (binary_expr
+        left: (method_chain
+          receiver: (identifier)
+          method: (identifier))
+        right: (string))
+      consequence: (method_chain
+        receiver: (identifier)
+        method: (identifier))
+      alternative: (deleted))))
+
+==================
+Match expression - with subject
+==================
+root = match this.type {
+  "article" => this.title
+  _ => deleted()
+}
+---
+(source
+  (root_assignment
+    value: (match_expr
+      condition: (method_chain
+        receiver: (identifier)
+        method: (identifier))
+      (match_case
+        pattern: (string)
+        result: (method_chain
+          receiver: (identifier)
+          method: (identifier)))
+      (match_case
+        pattern: (catch_all)
+        result: (deleted)))))
+
+==================
+Match expression - no subject
+==================
+root = match {
+  this.a > 0 => "positive"
+  _ => "other"
+}
+---
+(source
+  (root_assignment
+    value: (match_expr
+      (match_case
+        pattern: (binary_expr
+          left: (method_chain
+            receiver: (identifier)
+            method: (identifier))
+          right: (number))
+        result: (string))
+      (match_case
+        pattern: (catch_all)
+        result: (string)))))

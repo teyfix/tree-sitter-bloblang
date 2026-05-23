@@ -1,0 +1,181 @@
+==================
+Method chain - single
+==================
+root = this.user
+---
+(source
+  (root_assignment
+    value: (method_chain
+      receiver: (identifier)
+      method: (identifier))))
+
+==================
+Method chain - deep
+==================
+root = this.user.name.trim()
+---
+(source
+  (root_assignment
+    value: (method_chain
+      receiver: (method_chain
+        receiver: (method_chain
+          receiver: (identifier)
+          method: (identifier))
+        method: (identifier))
+      method: (call_expr
+        function: (identifier)))))
+
+==================
+Call expression - no args
+==================
+root = uuid_v4()
+---
+(source
+  (root_assignment
+    value: (call_expr
+      function: (identifier))))
+
+==================
+Call expression - with args
+==================
+root = this.user.name.replace("foo", "bar")
+---
+(source
+  (root_assignment
+    value: (method_chain
+      receiver: (method_chain
+        receiver: (method_chain
+          receiver: (identifier)
+          method: (identifier))
+        method: (identifier))
+      method: (call_expr
+        function: (identifier)
+        (string)
+        (string)))))
+
+==================
+Lambda
+==================
+root = this.roles.map_each(role -> role.uppercase())
+---
+(source
+  (root_assignment
+    value: (method_chain
+      receiver: (method_chain
+        receiver: (identifier)
+        method: (identifier))
+      method: (call_expr
+        function: (identifier)
+        (lambda
+          param: (identifier)
+          body: (method_chain
+            receiver: (identifier)
+            method: (call_expr
+              function: (identifier))))))))
+
+==================
+Object literal
+==================
+root = {
+  "id": this.user.id,
+  "name": this.user.name,
+}
+---
+(source
+  (root_assignment
+    value: (object_literal
+      (pair
+        key: (string)
+        value: (method_chain
+          receiver: (method_chain
+            receiver: (identifier)
+            method: (identifier))
+          method: (identifier)))
+      (pair
+        key: (string)
+        value: (method_chain
+          receiver: (method_chain
+            receiver: (identifier)
+            method: (identifier))
+          method: (identifier))))))
+
+==================
+Array literal
+==================
+root = ["a", "b", "c"]
+---
+(source
+  (root_assignment
+    value: (array_literal
+      (string)
+      (string)
+      (string))))
+
+==================
+Binary expression
+==================
+root = this.errors.length() > 0
+---
+(source
+  (root_assignment
+    value: (binary_expr
+      left: (method_chain
+        receiver: (method_chain
+          receiver: (identifier)
+          method: (identifier))
+        method: (call_expr
+          function: (identifier)))
+      right: (number))))
+
+==================
+Unary expression
+==================
+root = !this.active
+---
+(source
+  (root_assignment
+    value: (unary_expr
+      argument: (method_chain
+        receiver: (identifier)
+        method: (identifier)))))
+
+==================
+Parenthesized expression
+==================
+root = (this.a + this.b)
+---
+(source
+  (root_assignment
+    value: (parenthesized_expr
+      (binary_expr
+        left: (method_chain
+          receiver: (identifier)
+          method: (identifier))
+        right: (method_chain
+          receiver: (identifier)
+          method: (identifier))))))
+
+==================
+Variable reference
+==================
+let kvs = this.items
+root = $kvs
+---
+(source
+  (let_assignment
+    name: (identifier)
+    value: (method_chain
+      receiver: (identifier)
+      method: (identifier)))
+  (root_assignment
+    value: (variable_ref
+      (identifier))))
+
+==================
+Deleted
+==================
+root = deleted()
+---
+(source
+  (root_assignment
+    value: (deleted)))

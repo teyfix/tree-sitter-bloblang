@@ -1,0 +1,20 @@
+==================
+Comment is ignored
+==================
+# this is a comment
+root = "hello"
+---
+(source
+  (comment)
+  (root_assignment
+    value: (string)))
+
+==================
+Inline comment
+==================
+root = "hello" # end of line
+---
+(source
+  (root_assignment
+    value: (string))
+  (comment))
