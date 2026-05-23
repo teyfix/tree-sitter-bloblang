@@ -177,12 +177,7 @@ export default grammar({
     /**
      * A single key-value pair used inside object literals
      */
-    pair: ($) =>
-      seq(
-        field("key", choice($.string, $.identifier)),
-        ":",
-        field("value", $._expr),
-      ),
+    pair: ($) => seq(field("key", $._expr), ":", field("value", $._expr)),
 
     /**
      * Array literals (e.g., [a, b, c])

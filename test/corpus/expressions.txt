@@ -100,6 +100,55 @@ root = {
           method: (identifier))))))
 
 ==================
+Object literal - if expression key
+==================
+let custom = "local_prop"
+let hello = "hello"
+root = {
+  prop: "name",
+  $custom: "local_name",
+  ($hello + "key"): "new_key",
+  if true { this.prop.replace("in", "replace") } else { "false" }: 3
+}
+---
+(source
+  (let_assignment
+    name: (identifier)
+    value: (string))
+  (let_assignment
+    name: (identifier)
+    value: (string))
+  (root_assignment
+    value: (object_literal
+      (pair
+        key: (identifier)
+        value: (string))
+      (pair
+        key: (variable_ref
+          (identifier))
+        value: (string))
+      (pair
+        key: (parenthesized_expr
+          (binary_expr
+            left: (variable_ref
+              (identifier))
+            right: (string)))
+        value: (string))
+      (pair
+        key: (if_expr
+          condition: (boolean)
+          consequence: (method_chain
+            receiver: (method_chain
+              receiver: (identifier)
+              method: (identifier))
+            method: (call_expr
+              function: (identifier)
+              (string)
+              (string)))
+          alternative: (string))
+        value: (number)))))
+
+==================
 Array literal
 ==================
 root = ["a", "b", "c"]
