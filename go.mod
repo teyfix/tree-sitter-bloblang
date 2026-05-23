@@ -1,4 +1,4 @@
-module github.com/teyfix/tree-sitter-bloblang.git
+module github.com/teyfix/tree-sitter-bloblang
 
 go 1.22
 
