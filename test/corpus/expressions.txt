@@ -24,6 +24,58 @@ root = this.user.name.trim()
         method: (identifier))
       method: (call_expr
         function: (identifier)))))
+==================
+Method chain - parenthesized coalesce
+==================
+root = this.(bar | baz)
+---
+(source
+  (root_assignment
+    value: (method_chain
+      receiver: (identifier)
+      method: (parenthesized_expr
+        (binary_expr
+          left: (identifier)
+          right: (identifier))))))
+
+==================
+Method chain - parenthesized coalesce with chained methods
+==================
+root = this.(bar | baz).trim()
+---
+(source
+  (root_assignment
+    value: (method_chain
+      receiver: (method_chain
+        receiver: (identifier)
+        method: (parenthesized_expr
+          (binary_expr
+            left: (identifier)
+            right: (identifier))))
+      method: (call_expr
+        function: (identifier)))))
+
+==================
+Method chain - parenthesized coalesce with named args
+==================
+root = this.(bar | baz).trim().replace_all("dog", "cat")
+---
+(source
+  (root_assignment
+    value: (method_chain
+      receiver: (method_chain
+        receiver: (method_chain
+          receiver: (identifier)
+          method: (parenthesized_expr
+            (binary_expr
+              left: (identifier)
+              right: (identifier))))
+        method: (call_expr
+          function: (identifier)))
+      method: (call_expr
+        function: (identifier)
+        (string)
+        (string)))))
 
 ==================
 Call expression - no args

@@ -143,7 +143,14 @@ export default grammar({
         seq(
           field("receiver", $._expr),
           ".",
-          field("method", choice($.identifier, $.call_expr)),
+          field(
+            "method",
+            choice(
+              $.identifier,
+              $.call_expr,
+              $.parenthesized_expr,
+            ),
+          ),
         ),
       ),
 

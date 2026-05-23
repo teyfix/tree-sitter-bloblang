@@ -1203,6 +1203,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "parenthesized_expr",
+            "named": true
           }
         ]
       },

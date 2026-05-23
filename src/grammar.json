@@ -397,6 +397,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "call_expr"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "parenthesized_expr"
                 }
               ]
             }
