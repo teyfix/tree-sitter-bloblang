@@ -2082,6 +2082,11 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "unary_expr",
     "named": true,
     "fields": {
@@ -2358,10 +2363,6 @@
   {
     "type": "root",
     "named": false
-  },
-  {
-    "type": "string",
-    "named": true
   },
   {
     "type": "this_ref",

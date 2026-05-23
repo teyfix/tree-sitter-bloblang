@@ -14,6 +14,11 @@ meta = deleted()
 
 let custom_var = "custom value"
 let metadata = @
+let single_quotes = "This is a \"single-line\" string containing quotes"
+let triple_multi_line = """
+This is a multi-line string
+"""
+let triple_quotes = """This is a "single-line" string containing quotes"""
 
 root = this
 root.user = this.user.apply("normalize_user")

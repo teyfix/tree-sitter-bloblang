@@ -298,3 +298,33 @@ root = @
 (source
   (root_assignment
     value: (bare_meta_ref)))
+
+==================
+String - triple quoted
+==================
+root = """hello world"""
+---
+(source
+  (root_assignment
+    value: (string)))
+
+==================
+String - triple quoted with embedded quotes
+==================
+root = """say "hello" to me"""
+---
+(source
+  (root_assignment
+    value: (string)))
+
+==================
+String - triple quoted multiline
+==================
+root = """
+  hello
+  world
+"""
+---
+(source
+  (root_assignment
+    value: (string)))

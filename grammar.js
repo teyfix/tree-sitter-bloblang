@@ -323,17 +323,9 @@ export default grammar({
      * String literals mapped within double quotes (including escaped characters)
      */
     string: ($) =>
-      token(
-        seq(
-          '"',
-          repeat(
-            choice(
-              /[^"\\]+/, // one or more normal chars (no quote, no backslash)
-              /\\./, // any escaped char
-            ),
-          ),
-          '"',
-        ),
+      choice(
+        token(seq('"', repeat(choice(/[^"\\]+/, /\\./)), '"')),
+        token(seq('"""', repeat(choice(/[^"]+/, /"[^"]/, /""[^"]/)), '"""')),
       ),
 
     /**
