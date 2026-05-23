@@ -1,0 +1,47 @@
+map normalize_user {
+  root = {
+    "id": this.user.id.or(uuid_v4()),
+    "name": this.user.name.trim(),
+    "email": this.user.email.lowercase(),
+    "roles": this.user.roles.or([]).map_each(role -> role.uppercase()),
+  }
+}
+
+let custom_var = "custom value"
+meta original_topic = @kafka_topic
+
+root = this
+root.user = this.user.apply("normalize_user")
+root.message = if this.message.type == "event" {
+  this.message.content.
+    replace("foo", "bar").
+    replace("hello", "world")
+} else {
+  deleted()
+}
+
+root.flattened = this.nested.
+  map_each_key(kv -> kv.
+    key.
+    replace("prefix_", "")
+  )
+
+root.metrics = {
+  "item_count": this.items.length(),
+  "has_errors": this.errors.length() > 0,
+}
+
+root.tags = this.tags.
+  filter(tag -> tag != "internal").
+  map_each(tag -> tag.lowercase())
+
+root.debug = {
+  "topic": @kafka_topic,
+  "partition": @kafka_partition,
+  "offset": @kafka_offset,
+}
+
+root.created_at = now()
+root.optional = this.maybe.value.or("default")
+root.deleted_field = deleted()
+root.custom_var = $custom_var

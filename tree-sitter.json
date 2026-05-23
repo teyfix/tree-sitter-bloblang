@@ -11,7 +11,8 @@
         "bloblang"
       ],
       "injection-regex": "^bloblang$",
-      "class-name": "TreeSitterBloblang"
+      "class-name": "TreeSitterBloblang",
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
