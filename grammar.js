@@ -52,7 +52,10 @@ export default grammar({
      * Metadata assignments (e.g., meta original_topic = @kafka_topic)
      */
     meta_assignment: ($) =>
-      seq("meta", field("key", $.identifier), "=", field("value", $._expr)),
+      choice(
+        seq("meta", field("key", $.identifier), "=", field("value", $._expr)),
+        seq("meta", "=", field("value", $._expr)),
+      ),
 
     /**
      * Root assignments, updated to natively support deep paths (e.g., root.doc.id = ...)

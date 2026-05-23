@@ -67,3 +67,13 @@ import "./common_maps.blobl"
 (source
   (import_statement
     (string)))
+
+==================
+Meta assignment - bare
+==================
+meta = deleted()
+---
+
+(source
+  (meta_assignment
+    value: (deleted)))
