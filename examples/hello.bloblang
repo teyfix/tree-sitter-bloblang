@@ -9,8 +9,11 @@ map normalize_user {
   }
 }
 
-let custom_var = "custom value"
 meta original_topic = @kafka_topic
+meta = deleted()
+
+let custom_var = "custom value"
+let metadata = @
 
 root = this
 root.user = this.user.apply("normalize_user")

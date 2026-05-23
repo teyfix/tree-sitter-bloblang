@@ -917,6 +917,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "bare_meta_ref"
+        },
+        {
+          "type": "SYMBOL",
           "name": "this_ref"
         },
         {
@@ -982,6 +986,10 @@
           "name": "identifier"
         }
       ]
+    },
+    "bare_meta_ref": {
+      "type": "STRING",
+      "value": "@"
     },
     "variable_ref": {
       "type": "SEQ",
@@ -1084,6 +1092,10 @@
     [
       "match_expr",
       "object_literal"
+    ],
+    [
+      "meta_ref",
+      "bare_meta_ref"
     ]
   ],
   "precedences": [],

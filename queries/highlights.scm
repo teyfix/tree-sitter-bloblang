@@ -109,5 +109,11 @@
 ; Import statements
 (import_statement) @keyword
 
+; Metadata reference
+[
+  (meta_ref)
+  (bare_meta_ref)
+] @variable.builtin
+
 ; 8. Built-ins and Catch-alls
 (catch_all) @variable.builtin

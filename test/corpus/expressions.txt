@@ -288,3 +288,13 @@ root = deleted()
 (source
   (root_assignment
     value: (deleted)))
+
+==================
+Bare metadata reference
+==================
+root = @
+---
+
+(source
+  (root_assignment
+    value: (bare_meta_ref)))

@@ -18,7 +18,10 @@ export default grammar({
   /**
    * Tell Tree-sitter to use GLR parsing for this specific ambiguity
    */
-  conflicts: ($) => [[$.match_expr, $.object_literal]],
+  conflicts: ($) => [
+    [$.match_expr, $.object_literal],
+    [$.meta_ref, $.bare_meta_ref],
+  ],
 
   rules: {
     // -------------------------------------------------------------------------
@@ -274,6 +277,7 @@ export default grammar({
       choice(
         $.call_expr,
         $.meta_ref,
+        $.bare_meta_ref,
         $.this_ref,
         $.variable_ref,
         $.deleted,
@@ -298,6 +302,7 @@ export default grammar({
      * Metadata reference (e.g., @kafka_topic)
      */
     meta_ref: ($) => seq("@", $.identifier),
+    bare_meta_ref: ($) => "@",
 
     /**
      * Variable reference initialized previously via let (e.g., $kvs)
