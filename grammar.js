@@ -110,7 +110,12 @@ export default grammar({
         "{",
         field("consequence", $._expr),
         "}",
-        optional(seq("else", "{", field("alternative", $._expr), "}")),
+        optional(
+          choice(
+            seq("else", "{", field("alternative", $._expr), "}"),
+            seq("else", field("alternative", $.if_expr)),
+          ),
+        ),
       ),
 
     /**

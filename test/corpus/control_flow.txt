@@ -67,3 +67,33 @@ root = match {
       (match_case
         pattern: (catch_all)
         result: (string)))))
+
+==================
+If expression - else if chain
+==================
+root = if this.type == "cat" {
+  "meow"
+} else if this.type == "dog" {
+  "woof"
+} else {
+  "silence"
+}
+---
+
+(source
+  (root_assignment
+    value: (if_expr
+      condition: (binary_expr
+        left: (field_access
+          object: (this_ref)
+          field: (identifier))
+        right: (string))
+      consequence: (string)
+      alternative: (if_expr
+        condition: (binary_expr
+          left: (field_access
+            object: (this_ref)
+            field: (identifier))
+          right: (string))
+        consequence: (string)
+        alternative: (string)))))
