@@ -147,8 +147,17 @@
                     "type": "FIELD",
                     "name": "path",
                     "content": {
-                      "type": "SYMBOL",
-                      "name": "identifier"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "string"
+                        }
+                      ]
                     }
                   }
                 ]
@@ -476,6 +485,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "parenthesized_expr"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "string"
                 }
               ]
             }

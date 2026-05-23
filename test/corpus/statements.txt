@@ -77,3 +77,19 @@ meta = deleted()
 (source
   (meta_assignment
     value: (deleted)))
+
+==================
+Root assignment - quoted path
+==================
+root."foo.bar".baz = this."buz bev".fub
+---
+
+(source
+  (root_assignment
+    path: (string)
+    path: (identifier)
+    value: (field_access
+      object: (field_access
+        object: (this_ref)
+        field: (string))
+      field: (identifier))))

@@ -66,9 +66,13 @@ export default grammar({
     root_assignment: ($) =>
       seq(
         "root",
-        // Use token.immediate(".") to enforce dot notation is attached to the left
         optional(
-          repeat1(seq(token.immediate("."), field("path", $.identifier))),
+          repeat1(
+            seq(
+              token.immediate("."),
+              field("path", choice($.identifier, $.string)),
+            ),
+          ),
         ),
         "=",
         field("value", $._expr),
@@ -161,7 +165,7 @@ export default grammar({
         seq(
           field("object", $._expr),
           token.immediate("."),
-          field("field", choice($.identifier, $.parenthesized_expr)),
+          field("field", choice($.identifier, $.parenthesized_expr, $.string)),
         ),
       ),
 
