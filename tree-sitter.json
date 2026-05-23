@@ -6,13 +6,11 @@
       "camelcase": "Bloblang",
       "title": "Bloblang",
       "scope": "source.bloblang",
-      "file-types": [
-        "blobl",
-        "bloblang"
-      ],
+      "file-types": ["blobl", "bloblang"],
       "injection-regex": "^bloblang$",
       "class-name": "TreeSitterBloblang",
-      "highlights": "queries/highlights.scm"
+      "highlights": "queries/highlights.scm",
+      "locals": "queries/locals.scm"
     }
   ],
   "metadata": {
