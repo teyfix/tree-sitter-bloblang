@@ -1,0 +1,21 @@
+# Lefthook configuration for tree-sitter-bloblang
+# https://lefthook.dev/configuration/
+
+pre-commit:
+  parallel: false # Must be false so compilation finishes before tests run
+  jobs:
+    - name: tree-sitter-generate
+      glob: "grammar.js"
+      run: |
+        tree-sitter generate
+        git add src/ binding.gyp bindings/ 2>/dev/null || true
+      stage_fixed: true
+
+    - name: tree-sitter-test
+      run: tree-sitter test
+
+commit-msg:
+  parallel: true
+  commands:
+    commitlint:
+      run: bun x commitlint --edit
