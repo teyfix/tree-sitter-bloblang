@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-bloblang
 HOMEPAGE_URL := https://github.com/teyfix/tree-sitter-bloblang.git
-VERSION := 0.1.0
+VERSION := 0.1.4
 
 # repository
 SRC_DIR := src

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-bloblang
-        VERSION "0.1.0"
+        VERSION "0.1.4"
         DESCRIPTION "Tree-sitter grammar for Bloblang, the data mapping language used by Benthos/Redpanda Connect"
         HOMEPAGE_URL "https://github.com/teyfix/tree-sitter-bloblang.git"
         LANGUAGES C)

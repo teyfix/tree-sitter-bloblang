@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-bloblang",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Tree-sitter grammar for Bloblang, the data mapping language used by Benthos/Redpanda Connect",
   "type": "module",
   "repository": {
