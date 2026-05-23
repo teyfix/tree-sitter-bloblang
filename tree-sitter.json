@@ -1,0 +1,43 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "bloblang",
+      "camelcase": "Bloblang",
+      "title": "Bloblang",
+      "scope": "source.bloblang",
+      "file-types": [
+        "blobl",
+        "bloblang"
+      ],
+      "injection-regex": "^bloblang$",
+      "class-name": "TreeSitterBloblang"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammar for Bloblang, the data mapping language used by Benthos/Redpanda Connect",
+    "authors": [
+      {
+        "name": "Halil Teyfik Dolmaci",
+        "email": "hlltvfk@gmail.com",
+        "url": "https://github.com/teyfix"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/teyfix/tree-sitter-bloblang.git",
+      "funding": ""
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "java": false,
+    "node": true,
+    "python": false,
+    "rust": false,
+    "swift": false,
+    "zig": false
+  }
+}
