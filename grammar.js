@@ -38,7 +38,8 @@ export default grammar({
         $.map_declaration,
         $.meta_assignment,
         $.root_assignment,
-        $.let_assignment, // Added to support 'let' variable assignments
+        $.let_assignment,
+        $.import_statement,
       ),
 
     /**
@@ -66,6 +67,11 @@ export default grammar({
         "=",
         field("value", $._expr),
       ),
+
+    /**
+     * Import statements (e.g import "./common_maps.blobl")
+     */
+    import_statement: ($) => seq("import", field("path", $.string)),
 
     /**
      * Variable declarations (e.g., let header = if count("rows") == 1 { ... })

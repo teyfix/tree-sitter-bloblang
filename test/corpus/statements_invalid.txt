@@ -35,3 +35,10 @@ Invalid - Map declaration missing braces
 map normalize_user
   root = this
 ---
+
+==================
+Invalid - Import declaration missing path
+:error
+==================
+import
+---

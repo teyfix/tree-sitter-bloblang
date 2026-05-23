@@ -776,6 +776,22 @@
     }
   },
   {
+    "type": "import_statement",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "lambda",
     "named": true,
     "fields": {
@@ -990,6 +1006,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "import_statement",
+          "named": true
+        },
         {
           "type": "let_assignment",
           "named": true
@@ -1954,6 +1974,10 @@
       "required": false,
       "types": [
         {
+          "type": "import_statement",
+          "named": true
+        },
+        {
           "type": "let_assignment",
           "named": true
         },
@@ -2216,6 +2240,10 @@
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "import",
     "named": false
   },
   {

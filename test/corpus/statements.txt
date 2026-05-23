@@ -58,3 +58,12 @@ map normalize_user {
       value: (field_access
         object: (this_ref)
         field: (identifier)))))
+
+==================
+Import statement
+==================
+import "./common_maps.blobl"
+---
+(source
+  (import_statement
+    (string)))

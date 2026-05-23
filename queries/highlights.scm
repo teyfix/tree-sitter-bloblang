@@ -106,5 +106,8 @@
 ; 7. This reference
 (this_ref) @variable.builtin
 
+; Import statements
+(import_statement) @keyword
+
 ; 8. Built-ins and Catch-alls
 (catch_all) @variable.builtin
