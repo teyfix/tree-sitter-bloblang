@@ -1,0 +1,109 @@
+==================
+String - empty
+==================
+root = ""
+---
+(source
+  (root_assignment
+    value: (string)))
+
+==================
+String - simple
+==================
+root = "hello"
+---
+(source
+  (root_assignment
+    value: (string)))
+
+==================
+String - escaped quote
+==================
+root = "say \"hello\""
+---
+(source
+  (root_assignment
+    value: (string)))
+
+==================
+String - escaped backslash
+==================
+root = "foo\\bar"
+---
+(source
+  (root_assignment
+    value: (string)))
+
+==================
+Number - integer
+==================
+root = 42
+---
+(source
+  (root_assignment
+    value: (number)))
+
+==================
+Number - float
+==================
+root = 3.14
+---
+(source
+  (root_assignment
+    value: (number)))
+
+==================
+Number - negative integer
+==================
+root = -42
+---
+(source
+  (root_assignment
+    value: (unary_expr
+      argument: (number))))
+
+==================
+Number - negative float
+==================
+root = -3.14
+---
+(source
+  (root_assignment
+    value: (unary_expr
+      argument: (number))))
+
+==================
+Number - zero
+==================
+root = 0
+---
+(source
+  (root_assignment
+    value: (number)))
+
+==================
+Boolean - true
+==================
+root = true
+---
+(source
+  (root_assignment
+    value: (boolean)))
+
+==================
+Boolean - false
+==================
+root = false
+---
+(source
+  (root_assignment
+    value: (boolean)))
+
+==================
+Null - not a keyword, parsed as identifier
+==================
+root = null
+---
+(source
+  (root_assignment
+    value: (identifier)))

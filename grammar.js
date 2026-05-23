@@ -145,11 +145,7 @@ export default grammar({
           ".",
           field(
             "method",
-            choice(
-              $.identifier,
-              $.call_expr,
-              $.parenthesized_expr,
-            ),
+            choice($.identifier, $.call_expr, $.parenthesized_expr),
           ),
         ),
       ),
@@ -284,12 +280,24 @@ export default grammar({
     /**
      * String literals mapped within double quotes (including escaped characters)
      */
-    string: ($) => /"([^"\\]|\\.)*"/,
+    string: ($) =>
+      token(
+        seq(
+          '"',
+          repeat(
+            choice(
+              /[^"\\]+/, // one or more normal chars (no quote, no backslash)
+              /\\./, // any escaped char
+            ),
+          ),
+          '"',
+        ),
+      ),
 
     /**
      * Numeric literals (handles integers, floats, and scientific notation)
      */
-    number: ($) => /-?\d+(\.\d+)?([eE][+-]?\d+)?/,
+    number: ($) => /\d+(?:\.\d+)?/,
 
     /**
      * Boolean literals
@@ -299,6 +307,6 @@ export default grammar({
     /**
      * Single-line comments defined by a hash (#)
      */
-    comment: ($) => token(seq("#", /.*/)),
+    comment: ($) => token(seq("#", /[^\n]*/)),
   },
 });
