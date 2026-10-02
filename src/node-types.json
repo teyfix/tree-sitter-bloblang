@@ -60,6 +60,10 @@
           "named": true
         },
         {
+          "type": "null",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -153,6 +157,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
             "named": true
           },
           {
@@ -304,6 +312,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -409,6 +421,14 @@
         },
         {
           "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "named_argument",
+          "named": true
+        },
+        {
+          "type": "null",
           "named": true
         },
         {
@@ -521,6 +541,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -613,6 +637,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -696,6 +724,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
             "named": true
           },
           {
@@ -785,6 +817,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -810,6 +846,126 @@
           },
           {
             "type": "variable_ref",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "if_statement",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "statement_block",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_literal",
+            "named": true
+          },
+          {
+            "type": "bare_meta_ref",
+            "named": true
+          },
+          {
+            "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call_expr",
+            "named": true
+          },
+          {
+            "type": "deleted",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "lambda",
+            "named": true
+          },
+          {
+            "type": "match_expr",
+            "named": true
+          },
+          {
+            "type": "meta_ref",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "object_literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expr",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
+            "named": true
+          },
+          {
+            "type": "unary_expr",
+            "named": true
+          },
+          {
+            "type": "variable_ref",
+            "named": true
+          }
+        ]
+      },
+      "consequence": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "statement_block",
             "named": true
           }
         ]
@@ -890,6 +1046,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
             "named": true
           },
           {
@@ -1005,6 +1165,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -1047,6 +1211,10 @@
           {
             "type": "identifier",
             "named": true
+          },
+          {
+            "type": "string",
+            "named": true
           }
         ]
       }
@@ -1055,6 +1223,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "if_statement",
+          "named": true
+        },
         {
           "type": "import_statement",
           "named": true
@@ -1143,6 +1315,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -1226,6 +1402,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
             "named": true
           },
           {
@@ -1321,6 +1501,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -1372,6 +1556,10 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string",
             "named": true
           }
         ]
@@ -1433,6 +1621,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -1474,6 +1666,10 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -1547,6 +1743,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
             "named": true
           },
           {
@@ -1637,6 +1837,14 @@
           "named": true
         },
         {
+          "type": "named_argument",
+          "named": true
+        },
+        {
+          "type": "null",
+          "named": true
+        },
+        {
           "type": "number",
           "named": true
         },
@@ -1665,6 +1873,112 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "named_argument",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_literal",
+            "named": true
+          },
+          {
+            "type": "bare_meta_ref",
+            "named": true
+          },
+          {
+            "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "call_expr",
+            "named": true
+          },
+          {
+            "type": "deleted",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "lambda",
+            "named": true
+          },
+          {
+            "type": "match_expr",
+            "named": true
+          },
+          {
+            "type": "meta_ref",
+            "named": true
+          },
+          {
+            "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "object_literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expr",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "this_ref",
+            "named": true
+          },
+          {
+            "type": "unary_expr",
+            "named": true
+          },
+          {
+            "type": "variable_ref",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1740,6 +2054,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
             "named": true
           },
           {
@@ -1826,6 +2144,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
             "named": true
           },
           {
@@ -1918,6 +2240,10 @@
         },
         {
           "type": "method_call",
+          "named": true
+        },
+        {
+          "type": "null",
           "named": true
         },
         {
@@ -2026,6 +2352,10 @@
             "named": true
           },
           {
+            "type": "null",
+            "named": true
+          },
+          {
             "type": "number",
             "named": true
           },
@@ -2066,6 +2396,45 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "import_statement",
+          "named": true
+        },
+        {
+          "type": "let_assignment",
+          "named": true
+        },
+        {
+          "type": "map_declaration",
+          "named": true
+        },
+        {
+          "type": "meta_assignment",
+          "named": true
+        },
+        {
+          "type": "root_assignment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "statement_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "if_statement",
+          "named": true
+        },
         {
           "type": "import_statement",
           "named": true
@@ -2152,6 +2521,10 @@
           },
           {
             "type": "method_call",
+            "named": true
+          },
+          {
+            "type": "null",
             "named": true
           },
           {
@@ -2363,6 +2736,10 @@
   {
     "type": "meta",
     "named": false
+  },
+  {
+    "type": "null",
+    "named": true
   },
   {
     "type": "number",

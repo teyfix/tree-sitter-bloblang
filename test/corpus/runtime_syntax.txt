@@ -1,0 +1,285 @@
+==================
+Named method arguments
+==================
+root = this.replace_all(old: "dog", new: "cat",)
+---
+
+(source
+  (root_assignment
+    (method_call
+      (this_ref)
+      (identifier)
+      (named_argument
+        (identifier)
+        (string))
+      (named_argument
+        (identifier)
+        (string)))))
+
+==================
+Named function arguments
+==================
+root = range(start: 0, stop: 10,)
+---
+
+(source
+  (root_assignment
+    (call_expr
+      (identifier)
+      (named_argument
+        (identifier)
+        (number))
+      (named_argument
+        (identifier)
+        (number)))))
+
+==================
+Trailing call comma and multiline chain
+==================
+root = this.items.
+  map_each(item -> item.with("name", "id",).assign({"active": true,}))
+---
+
+(source
+  (root_assignment
+    (method_call
+      (field_access
+        (this_ref)
+        (identifier))
+      (identifier)
+      (lambda
+        (identifier)
+        (method_call
+          (method_call
+            (identifier)
+            (identifier)
+            (string)
+            (string))
+          (identifier)
+          (object_literal
+            (pair
+              (string)
+              (boolean))))))))
+
+==================
+Lambda consumes binary body
+==================
+root = this.items.filter(item -> item.a != null && item.b.length() > 0)
+---
+
+(source
+  (root_assignment
+    (method_call
+      (field_access
+        (this_ref)
+        (identifier))
+      (identifier)
+      (lambda
+        (identifier)
+        (binary_expr
+          (binary_expr
+            (field_access
+              (identifier)
+              (identifier))
+            (null))
+          (binary_expr
+            (method_call
+              (field_access
+                (identifier)
+                (identifier))
+              (identifier))
+            (number)))))))
+
+==================
+Product before sum and comparison before boolean
+==================
+root = 1 + 2 * 3 == 7 && true
+---
+
+(source
+  (root_assignment
+    (binary_expr
+      (binary_expr
+        (binary_expr
+          (number)
+          (binary_expr
+            (number)
+            (number)))
+        (number))
+      (boolean))))
+
+==================
+Coalesce shares product precedence
+==================
+root = this.count | 2 * 3 + 1
+---
+
+(source
+  (root_assignment
+    (binary_expr
+      (binary_expr
+        (binary_expr
+          (field_access
+            (this_ref)
+            (identifier))
+          (number))
+        (number))
+      (number))))
+
+==================
+Boolean operators share precedence
+==================
+root = true || false && false
+---
+
+(source
+  (root_assignment
+    (binary_expr
+      (binary_expr
+        (boolean)
+        (boolean))
+      (boolean))))
+
+==================
+Match result binary method call
+==================
+root = match { this.x == 1 => "id:" + this.name.uppercase(), _ => null }
+---
+
+(source
+  (root_assignment
+    (match_expr
+      (match_case
+        (binary_expr
+          (field_access
+            (this_ref)
+            (identifier))
+          (number))
+        (binary_expr
+          (string)
+          (method_call
+            (field_access
+              (this_ref)
+              (identifier))
+            (identifier))))
+      (match_case
+        (catch_all)
+        (null)))))
+
+==================
+Statement if chain
+==================
+if this.a {
+  root = this
+  root.x = 1
+} else if this.b {
+  meta state = "b"
+} else {
+  root = deleted()
+}
+---
+
+(source
+  (if_statement
+    (field_access
+      (this_ref)
+      (identifier))
+    (statement_block
+      (root_assignment
+        (this_ref))
+      (root_assignment
+        (identifier)
+        (number)))
+    (if_statement
+      (field_access
+        (this_ref)
+        (identifier))
+      (statement_block
+        (meta_assignment
+          (identifier)
+          (string)))
+      (statement_block
+        (root_assignment
+          (deleted))))))
+
+==================
+Nested statement if
+==================
+map normalize {
+  if this.a {
+    if this.b { root = this } else { root = null }
+  }
+}
+root = this.apply("normalize")
+---
+
+(source
+  (map_declaration
+    (identifier)
+    (if_statement
+      (field_access
+        (this_ref)
+        (identifier))
+      (statement_block
+        (if_statement
+          (field_access
+            (this_ref)
+            (identifier))
+          (statement_block
+            (root_assignment
+              (this_ref)))
+          (statement_block
+            (root_assignment
+              (null)))))))
+  (root_assignment
+    (method_call
+      (this_ref)
+      (identifier)
+      (string))))
+
+==================
+Quoted metadata key
+==================
+root = @"Content-Encoding"
+---
+
+(source
+  (root_assignment
+    (meta_ref
+      (string))))
+
+==================
+Unicode string and directive comment
+==================
+#!input {"name":"😀"}
+root.x = "😀" + this.name # preserve this comment
+---
+
+(source
+  (comment)
+  (root_assignment
+    (identifier)
+    (binary_expr
+      (string)
+      (field_access
+        (this_ref)
+        (identifier))))
+  (comment))
+
+==================
+Quoted map name
+==================
+map "normalize-user" { root = this }
+root = this.apply("normalize-user")
+---
+
+(source
+  (map_declaration
+    (string)
+    (root_assignment
+      (this_ref)))
+  (root_assignment
+    (method_call
+      (this_ref)
+      (identifier)
+      (string))))

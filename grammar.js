@@ -43,20 +43,47 @@ export default grammar({
         $.root_assignment,
         $.let_assignment,
         $.import_statement,
+        $.if_statement,
       ),
+
+    if_statement: ($) =>
+      seq(
+        "if",
+        field("condition", $._expr),
+        field("consequence", $.statement_block),
+        optional(
+          seq(
+            "else",
+            field("alternative", choice($.statement_block, $.if_statement)),
+          ),
+        ),
+      ),
+
+    statement_block: ($) => seq("{", repeat($._statement), "}"),
 
     /**
      * Map blocks for reusable mapping structures (e.g., map normalize_user { ... })
      */
     map_declaration: ($) =>
-      seq("map", field("name", $.identifier), "{", repeat($._statement), "}"),
+      seq(
+        "map",
+        field("name", choice($.identifier, $.string)),
+        "{",
+        repeat($._statement),
+        "}",
+      ),
 
     /**
      * Metadata assignments (e.g., meta original_topic = @kafka_topic)
      */
     meta_assignment: ($) =>
       choice(
-        seq("meta", field("key", $.identifier), "=", field("value", $._expr)),
+        seq(
+          "meta",
+          field("key", choice($.identifier, $.string)),
+          "=",
+          field("value", $._expr),
+        ),
         seq("meta", "=", field("value", $._expr)),
       ),
 
@@ -70,7 +97,7 @@ export default grammar({
           repeat1(
             seq(
               token.immediate("."),
-              field("path", choice($.identifier, $.string)),
+              field("path", choice($._path_identifier, $.string)),
             ),
           ),
         ),
@@ -161,11 +188,14 @@ export default grammar({
      */
     field_access: ($) =>
       prec.left(
-        3,
+        6,
         seq(
           field("object", $._expr),
           token.immediate("."),
-          field("field", choice($.identifier, $.parenthesized_expr, $.string)),
+          field(
+            "field",
+            choice($._path_identifier, $.parenthesized_expr, $.string),
+          ),
         ),
       ),
 
@@ -174,13 +204,13 @@ export default grammar({
      */
     method_call: ($) =>
       prec.left(
-        4,
+        7,
         seq(
           field("object", $._expr),
           token.immediate("."),
           field("method", $.identifier),
           "(",
-          optional(seq($._expr, repeat(seq(",", $._expr)))),
+          optional($._arguments),
           ")",
         ),
       ),
@@ -189,20 +219,31 @@ export default grammar({
      * Lambda functions used for higher-order methods (e.g., role -> role.uppercase())
      */
     lambda: ($) =>
-      seq(field("param", $.identifier), "->", field("body", $._expr)),
+      prec.right(
+        0,
+        seq(field("param", $.identifier), "->", field("body", $._expr)),
+      ),
+
+    _arguments: ($) =>
+      choice(
+        seq($._expr, repeat(seq(",", $._expr)), optional(",")),
+        seq(
+          $.named_argument,
+          repeat(seq(",", $.named_argument)),
+          optional(","),
+        ),
+      ),
+
+    named_argument: ($) =>
+      seq(field("name", $.identifier), ":", field("value", $._expr)),
 
     /**
      * Global function calls by bare identifier only (e.g., uuid_v4(), deleted())
      */
     call_expr: ($) =>
       prec.left(
-        4,
-        seq(
-          field("function", $.identifier),
-          "(",
-          optional(seq($._expr, repeat(seq(",", $._expr)))),
-          ")",
-        ),
+        7,
+        seq(field("function", $.identifier), "(", optional($._arguments), ")"),
       ),
 
     /**
@@ -234,30 +275,21 @@ export default grammar({
      * Binary operations, expanded to include mathematical (+, -, *, /, %) and the coalescing operator (|)
      */
     binary_expr: ($) =>
-      prec.left(
-        1,
-        seq(
-          field("left", $._expr),
-          field(
-            "operator",
-            choice(
-              ">",
-              "<",
-              ">=",
-              "<=",
-              "==",
-              "!=",
-              "&&",
-              "||",
-              "+",
-              "-",
-              "*",
-              "/",
-              "%",
-              "|",
+      choice(
+        ...[
+          [1, ["&&", "||"]],
+          [2, [">", "<", ">=", "<=", "==", "!="]],
+          [3, ["+", "-"]],
+          [4, ["*", "/", "%", "|"]],
+        ].map(([precedence, operators]) =>
+          prec.left(
+            precedence,
+            seq(
+              field("left", $._expr),
+              field("operator", choice(...operators)),
+              field("right", $._expr),
             ),
           ),
-          field("right", $._expr),
         ),
       ),
 
@@ -266,7 +298,7 @@ export default grammar({
      */
     unary_expr: ($) =>
       prec.right(
-        2,
+        5,
         seq(field("operator", choice("!", "-")), field("argument", $._expr)),
       ),
 
@@ -289,6 +321,7 @@ export default grammar({
         $.string,
         $.number,
         $.boolean,
+        $.null,
         $.parenthesized_expr,
       ),
 
@@ -305,7 +338,7 @@ export default grammar({
     /**
      * Metadata reference (e.g., @kafka_topic)
      */
-    meta_ref: ($) => seq("@", $.identifier),
+    meta_ref: ($) => seq("@", choice($.identifier, $.string)),
     bare_meta_ref: ($) => "@",
 
     /**
@@ -323,17 +356,20 @@ export default grammar({
      */
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
+    _path_identifier: ($) =>
+      choice($.identifier, alias(/[0-9][a-zA-Z0-9_]*/, $.identifier)),
+
     /**
      * String literals mapped within double quotes (including escaped characters)
      */
     string: ($) =>
       choice(
-        token(seq('"', repeat(choice(/[^"\\]+/, /\\./)), '"')),
+        token(seq('"', repeat(choice(/[^"\\\n\r]+/, /\\[^\n\r]/)), '"')),
         token(seq('"""', repeat(choice(/[^"]+/, /"[^"]/, /""[^"]/)), '"""')),
       ),
 
     /**
-     * Numeric literals (handles integers, floats, and scientific notation)
+     * Numeric literals (Bloblang supports decimal integers and floats)
      */
     number: ($) => /\d+(?:\.\d+)?/,
 
@@ -341,6 +377,8 @@ export default grammar({
      * Boolean literals
      */
     boolean: ($) => choice("true", "false"),
+
+    null: ($) => "null",
 
     /**
      * Single-line comments defined by a hash (#)

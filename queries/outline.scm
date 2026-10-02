@@ -6,7 +6,7 @@
 
 ; Reusable mapping blocks
 (map_declaration
-  name: (identifier) @name) @item
+  name: [(identifier) (string)] @name) @item
 
 ; Root assignments with deep path: root.user.name = ...
 (root_assignment

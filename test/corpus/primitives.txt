@@ -100,10 +100,10 @@ root = false
     value: (boolean)))
 
 ==================
-Null - not a keyword, parsed as identifier
+Null literal
 ==================
 root = null
 ---
 (source
   (root_assignment
-    value: (identifier)))
+    value: (null)))

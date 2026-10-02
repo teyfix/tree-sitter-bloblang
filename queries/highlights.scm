@@ -55,6 +55,7 @@
 (string)  @string
 (number)  @number
 (boolean) @boolean
+(null) @constant.builtin
 
 ; -------------------------------------------------------------------------
 ; Comments
@@ -80,6 +81,9 @@
 (pair
   key: (identifier) @property)
 
+(named_argument
+  name: (identifier) @variable.parameter)
+
 ; 5. Properties and fields (e.g., root.doc.id, v.key, this.foo.(bar | baz))
 (root_assignment
   path: (identifier) @property)
@@ -101,7 +105,7 @@
   function: (identifier) @function)
 
 (map_declaration
-  name: (identifier) @type.definition)
+  name: [(identifier) (string)] @type.definition)
 
 ; 7. This reference
 (this_ref) @variable.builtin
